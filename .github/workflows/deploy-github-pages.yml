@@ -1,0 +1,52 @@
+# 部署到 GitHub Pages：仓库 AnakinandR2/design-system
+# 启用方式：仓库 Settings → Pages → Build and deployment → Source 选「GitHub Actions」
+# 发布后访问：https://anakinandr2.github.io/design-system/
+name: Deploy GitHub Pages
+
+on:
+  push:
+    branches: [main, master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Install & build
+        run: |
+          npm ci
+          npm run pack:delivery
+          npm run pack:delivery:offline
+          npm run pack:delivery:cursor
+          npm run sync-delivery
+          npm run build
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

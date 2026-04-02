@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>design system</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <!-- 必须在 body 末尾执行：此时才有 body/#app，可立即写入内联底色，避免首屏灰闪 -->
+    <script>
+      ;(function () {
+        try {
+          var __t = localStorage.getItem('ds-theme')
+          var __theme = __t === 'dark' || __t === 'light' ? __t : 'light'
+          document.documentElement.setAttribute('data-theme', __theme)
+          document.documentElement.classList.toggle('dark', __theme === 'dark')
+          var __bg = __theme === 'dark' ? '#17171a' : '#f2f3f5'
+          document.body.style.setProperty('background-color', __bg, 'important')
+          var __app = document.getElementById('app')
+          if (__app) __app.style.setProperty('background-color', __bg, 'important')
+        } catch (e) {
+          document.documentElement.setAttribute('data-theme', 'light')
+          document.documentElement.classList.remove('dark')
+          document.body.style.setProperty('background-color', '#f2f3f5', 'important')
+          var __a = document.getElementById('app')
+          if (__a) __a.style.setProperty('background-color', '#f2f3f5', 'important')
+        }
+      })()
+    </script>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

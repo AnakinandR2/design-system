@@ -1,0 +1,22 @@
+/**
+ * 最后加载：亮色下强制整页与主内容白底（与内联脚本、syncPageChromeBackground 互为兜底）
+ */
+html[data-theme='light'] body,
+html[data-theme='light'] #app,
+html[data-theme='light'] .ds-shell,
+html[data-theme='light'] .ds-body,
+html[data-theme='light'] main.ds-main {
+  background-color: #f2f3f5 !important;
+}
+
+html[data-theme='light'] .ds-main__inner {
+  background-color: #ffffff !important;
+}
+
+html[data-theme='dark'] body,
+html[data-theme='dark'] #app,
+html[data-theme='dark'] .ds-shell,
+html[data-theme='dark'] .ds-body,
+html[data-theme='dark'] main.ds-main {
+  background-color: #17171a !important;
+}
