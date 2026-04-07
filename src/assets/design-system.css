@@ -217,6 +217,12 @@ body {
   justify-content: flex-end;
 }
 
+/* 顶栏文档入口：router-link 使用 .ds-btn 时去掉链接样式 */
+a.ds-btn.ds-topnav-entry {
+  text-decoration: none;
+  box-sizing: border-box;
+}
+
 .ds-search {
   display: flex;
   align-items: center;

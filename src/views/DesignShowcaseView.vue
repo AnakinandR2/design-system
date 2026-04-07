@@ -251,9 +251,9 @@ onMounted(() => {
         <!-- 顶栏：品牌、面包屑、搜索、语言/主题/通知/用户 -->
         <el-header class="ds-dash__header" height="56px">
           <div class="ds-dash__header-left">
-            <router-link to="/" class="ds-brand ds-dash__brand">
+            <router-link to="/" class="ds-brand ds-dash__brand" aria-label="Design System">
               <span class="ds-brand__mark" aria-hidden="true">
-                <svg width="24" height="24" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <rect x="2" y="2" width="12" height="12" rx="2" class="ds-brand__tile ds-brand__tile--a" />
                   <rect x="18" y="2" width="12" height="12" rx="2" class="ds-brand__tile ds-brand__tile--b" />
                   <rect x="2" y="18" width="12" height="12" rx="2" class="ds-brand__tile ds-brand__tile--c" />
@@ -269,14 +269,34 @@ onMounted(() => {
           </div>
 
           <div class="ds-dash__header-right">
-            <el-input
-              v-model="headerSearch"
-              class="ds-dash__header-search"
-              clearable
-              :placeholder="lang === 'zh' ? '搜索…' : 'Search…'"
-              :prefix-icon="Search"
-            />
-            <el-button text type="primary" @click="goHome">{{ lang === 'zh' ? '返回首页' : 'Home' }}</el-button>
+            <div class="ds-dash__nav-entries" role="navigation" aria-label="Site">
+              <router-link to="/doc/quick-start" class="ds-btn ds-btn--ghost ds-topnav-entry">{{ ui.topNavQuickStart }}</router-link>
+              <router-link to="/doc/button" class="ds-btn ds-btn--ghost ds-topnav-entry">{{ ui.topNavComponents }}</router-link>
+              <router-link to="/showcase" class="ds-btn ds-btn--ghost ds-topnav-entry">{{ ui.topNavShowcase }}</router-link>
+              <router-link to="/doc/delivery-package" class="ds-btn ds-btn--ghost ds-topnav-entry">{{ ui.topNavResources }}</router-link>
+            </div>
+            <div class="ds-search ds-dash__header-search" role="search">
+              <svg
+                class="ds-search__icon"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                aria-hidden="true"
+              >
+                <circle cx="11" cy="11" r="7" />
+                <path d="M20 20l-4-4" />
+              </svg>
+              <input
+                v-model="headerSearch"
+                type="search"
+                class="ds-search__input"
+                :placeholder="lang === 'zh' ? '搜索…' : 'Search…'"
+                autocomplete="off"
+              />
+            </div>
             <button type="button" class="ds-btn ds-btn--ghost" @click="toggleLang">{{ langToggleLabel }}</button>
             <button type="button" class="ds-btn ds-btn--ghost ds-iconbtn" :title="ui.themeTitle" @click="toggleTheme">
               <svg class="ds-icon-theme-light" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -697,15 +717,16 @@ onMounted(() => {
   min-height: 0;
 }
 
-/* 顶栏 */
+/* 顶栏：与 .ds-topnav 同高、同左右内边距；左侧品牌+面包屑，右侧四个全局入口+搜索与操作 */
 .ds-dash__header {
   display: flex !important;
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  flex-wrap: wrap;
-  padding: 0 16px 0 8px !important;
+  flex-wrap: nowrap;
+  padding: 0 24px 0 20px !important;
   height: 56px !important;
+  min-height: 56px !important;
   background: var(--ds-bg-surface) !important;
   border-bottom: 1px solid var(--ds-border);
   box-shadow: var(--ds-topnav-shadow);
@@ -717,7 +738,8 @@ onMounted(() => {
   align-items: center;
   gap: 4px;
   min-width: 0;
-  flex: 1;
+  flex: 1 1 0;
+  overflow: hidden;
 }
 
 .ds-dash__brand {
@@ -729,13 +751,15 @@ onMounted(() => {
   width: 1px;
   height: 20px;
   background: var(--ds-border);
-  margin: 0 4px;
+  margin: 0 4px 0 0;
   flex-shrink: 0;
 }
 
 .ds-dash__breadcrumb {
   min-width: 0;
   font-size: 13px;
+  flex: 1 1 auto;
+  overflow: hidden;
 }
 
 .ds-dash__breadcrumb :deep(.el-breadcrumb__inner) {
@@ -752,17 +776,44 @@ onMounted(() => {
   display: flex;
   align-items: center;
   gap: 8px;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   flex-shrink: 0;
 }
 
-.ds-dash__header-search {
-  width: 200px;
-  max-width: 40vw;
+.ds-dash__nav-entries {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: nowrap;
+  flex-shrink: 0;
 }
 
-.ds-dash__header-search :deep(.el-input__wrapper) {
-  background: var(--ds-input-bg);
+/* 与文档站 .ds-search 同宽段，避免搜索框高度/边框与 el-input 不一致 */
+.ds-dash__header-search.ds-search {
+  flex-shrink: 0;
+  min-width: 168px;
+  max-width: 240px;
+}
+
+@media (max-width: 1100px) {
+  .ds-dash__header {
+    flex-wrap: wrap;
+    height: auto !important;
+    min-height: 56px !important;
+    padding-top: 8px !important;
+    padding-bottom: 8px !important;
+  }
+
+  .ds-dash__header-left {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
+
+  .ds-dash__header-right {
+    flex: 1 1 100%;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+  }
 }
 
 .ds-dash__notify :deep(.el-badge__content) {
@@ -814,8 +865,9 @@ onMounted(() => {
     display: none;
   }
 
-  .ds-dash__header-search {
-    width: 140px;
+  .ds-dash__header-search.ds-search {
+    min-width: 120px;
+    max-width: min(240px, 42vw);
   }
 }
 

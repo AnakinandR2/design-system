@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { computed, onMounted, onUnmounted, provide, reactive, ref, watch } from 'vue'
+import { computed, nextTick, onMounted, provide, reactive, ref, watch } from 'vue'
 import zhCn from 'element-plus/es/locale/lang/zh-cn'
 import en from 'element-plus/es/locale/lang/en'
-import { useRouter } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { I18N, NAV_SECTIONS, type Lang, navLine, titleForNavId } from '../design-system/nav'
 import { apiRowsForNav, apiSubTablesForNav } from '../design-system/demos/api-rows'
 import { demoByNavId, getDemoForNavId } from '../design-system/demos/registry'
@@ -20,23 +20,28 @@ try {
 }
 
 const router = useRouter()
+const route = useRoute()
 const activeNavId = ref('button')
 const navCollapsed = ref(false)
 
-/** 只读地址栏 hash，不把侧栏切换写进路由（避免同组件多路由反复 remount） */
-function readNavIdFromHash(): string | null {
-  const m = window.location.hash.match(/#\/doc\/([^/?#]+)/)
+/** 从路由 path 解析文档 id（顶栏 router-link 跳转时未必触发 hashchange，需跟 route 同步） */
+function readNavIdFromDocPath(path: string): string | null {
+  const m = path.match(/^\/doc\/([^/?#]+)/)
   const id = m?.[1]
   return id && id in demoByNavId ? id : null
 }
 
-function applyHashToNav() {
-  const id = readNavIdFromHash()
+function syncNavFromRoute() {
+  const id = readNavIdFromDocPath(route.path)
   if (id) activeNavId.value = id
 }
 
-function openVisualShowcase() {
-  router.push('/showcase')
+/** 主内容区滚回顶部（滚动容器为 .ds-main） */
+function scrollDocMainToTop() {
+  nextTick(() => {
+    const el = document.querySelector('.ds-shell .ds-main') as HTMLElement | null
+    if (el) el.scrollTop = 0
+  })
 }
 
 const expanded = reactive<Record<string, boolean>>({
@@ -103,15 +108,19 @@ watch(lang, (l) => {
   document.documentElement.lang = l === 'zh' ? 'zh-CN' : 'en'
 })
 
+watch(
+  () => route.path,
+  (_path, prevPath) => {
+    syncNavFromRoute()
+    /* immediate 首次触发时 prevPath 为 undefined，避免在挂载前误滚 */
+    if (prevPath !== undefined) scrollDocMainToTop()
+  },
+  { immediate: true, flush: 'post' },
+)
+
 onMounted(() => {
   initTheme()
   document.documentElement.lang = lang.value === 'zh' ? 'zh-CN' : 'en'
-  applyHashToNav()
-  window.addEventListener('hashchange', applyHashToNav)
-})
-
-onUnmounted(() => {
-  window.removeEventListener('hashchange', applyHashToNav)
 })
 </script>
 
@@ -132,12 +141,10 @@ onUnmounted(() => {
         </router-link>
 
         <div class="ds-topnav__actions">
-          <button type="button" class="ds-btn ds-btn--ghost" @click="selectNav('delivery-package')">
-            {{ ui.topNavDelivery }}
-          </button>
-          <button type="button" class="ds-btn ds-btn--ghost" @click="openVisualShowcase">
-            {{ lang === 'zh' ? '视觉样例' : 'Showcase' }}
-          </button>
+          <router-link to="/doc/quick-start" class="ds-btn ds-btn--ghost ds-topnav-entry">{{ ui.topNavQuickStart }}</router-link>
+          <router-link to="/doc/button" class="ds-btn ds-btn--ghost ds-topnav-entry">{{ ui.topNavComponents }}</router-link>
+          <router-link to="/showcase" class="ds-btn ds-btn--ghost ds-topnav-entry">{{ ui.topNavShowcase }}</router-link>
+          <router-link to="/doc/delivery-package" class="ds-btn ds-btn--ghost ds-topnav-entry">{{ ui.topNavResources }}</router-link>
           <div class="ds-search" role="search">
             <svg
               class="ds-search__icon"

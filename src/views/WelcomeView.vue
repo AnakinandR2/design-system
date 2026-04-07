@@ -102,10 +102,10 @@ onMounted(() => {
         </router-link>
 
         <div class="ds-topnav__actions">
-          <router-link to="/doc/quick-start" class="ds-btn ds-btn--ghost ds-welcome-navlink">{{ ui.topNavQuickStart }}</router-link>
-          <router-link to="/doc/button" class="ds-btn ds-btn--ghost ds-welcome-navlink">{{ ui.topNavComponents }}</router-link>
-          <router-link to="/showcase" class="ds-btn ds-btn--ghost ds-welcome-navlink">{{ ui.topNavShowcase }}</router-link>
-          <router-link to="/doc/delivery-package" class="ds-btn ds-btn--ghost ds-welcome-navlink">{{ ui.topNavResources }}</router-link>
+          <router-link to="/doc/quick-start" class="ds-btn ds-btn--ghost ds-topnav-entry">{{ ui.topNavQuickStart }}</router-link>
+          <router-link to="/doc/button" class="ds-btn ds-btn--ghost ds-topnav-entry">{{ ui.topNavComponents }}</router-link>
+          <router-link to="/showcase" class="ds-btn ds-btn--ghost ds-topnav-entry">{{ ui.topNavShowcase }}</router-link>
+          <router-link to="/doc/delivery-package" class="ds-btn ds-btn--ghost ds-topnav-entry">{{ ui.topNavResources }}</router-link>
           <div class="ds-search" role="search">
             <svg
               class="ds-search__icon"
@@ -459,11 +459,6 @@ onMounted(() => {
 
 :root[data-theme='dark'] .ds-welcome__top.ds-topnav {
   background: rgba(23, 23, 26, 0.78) !important;
-}
-
-.ds-welcome-navlink {
-  text-decoration: none;
-  box-sizing: border-box;
 }
 
 .ds-welcome__main {
