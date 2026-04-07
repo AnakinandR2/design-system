@@ -1,149 +1,163 @@
 <script setup lang="ts">
+import { computed, inject, type Ref } from 'vue'
+import type { Lang } from '../../nav'
 import DsDocSample from '../../doc/DsDocSample.vue'
 import {
   SNIPPET_CONFIG_PROVIDER,
+  SNIPPET_HELLO_SFC,
+  SNIPPET_INSTALL,
   SNIPPET_MAIN_FULL,
   SNIPPET_MAIN_THIS_REPO,
   SNIPPET_TSCONFIG_TYPES,
   SNIPPET_VITE_ON_DEMAND,
 } from './quick-start-snippets'
 
-const SNIPPET_PANEL = `<!-- 侧栏切换各组件演示；地址 #/showcase 打开视觉样例页 -->
-<template>
-  <el-alert type="info" :closable="false" show-icon>...</el-alert>
-  <el-steps :active="3">...</el-steps>
-</template>`
+const dsLang = inject<Ref<Lang> | undefined>('dsLang', undefined)
+const lang = computed(() => dsLang?.value ?? 'zh')
 </script>
 
 <template>
   <div class="ds-ep ds-doc-page ds-quick-start">
     <p class="ds-ep__lead">
-      本节说明如何在项目中接入 Element Plus，并与本设计系统文档站的关系。更完整的官方说明见
-      <el-link
-        href="https://element-plus.org/zh-CN/guide/quickstart"
-        target="_blank"
-        rel="noopener noreferrer"
-        type="primary"
-      >
-        Element Plus 快速开始
-      </el-link>
-      ；组件 API 以
-      <el-link
-        href="https://element-plus.org/zh-CN/component/overview"
-        target="_blank"
-        rel="noopener noreferrer"
-        type="primary"
-      >
-        官方组件总览
-      </el-link>
-      为准。侧栏仅收录与当前文档对齐的子集。以下各节代码默认全部展示，可通过工具栏复制。
+      <template v-if="lang === 'zh'">
+        和业务项目里常见的「快速上手」一样：装好依赖、在入口注册、页面里写一个组件就能跑。更细的选项（按需引入、TS、全局配置）默认收在下方折叠里；完整说明仍以
+        <el-link href="https://element-plus.org/zh-CN/guide/quickstart" target="_blank" rel="noopener noreferrer" type="primary">
+          Element Plus 快速开始
+        </el-link>
+        为准。
+      </template>
+      <template v-else>
+        Like a typical quick start: install, register in entry, use one component. Advanced topics are collapsed below; see
+        <el-link href="https://element-plus.org/en-US/guide/quickstart" target="_blank" rel="noopener noreferrer" type="primary">
+          Element Plus quick start
+        </el-link>
+        for full docs.
+      </template>
     </p>
 
+    <el-alert type="info" :closable="false" show-icon class="ds-quick-tip">
+      <template v-if="lang === 'zh'">
+        本设计系统文档站 = Element Plus + 文档壳层样式；组件 API 见
+        <el-link href="https://element-plus.org/zh-CN/component/overview" target="_blank" rel="noopener noreferrer" type="primary">
+          官方组件总览
+        </el-link>
+        。视觉整页样例：
+        <router-link to="/showcase">#/showcase</router-link>
+      </template>
+      <template v-else>
+        This doc site is Element Plus + shell styles. APIs:
+        <el-link href="https://element-plus.org/en-US/component/overview" target="_blank" rel="noopener noreferrer" type="primary">
+          overview
+        </el-link>
+        . Full-page demo:
+        <router-link to="/showcase">#/showcase</router-link>
+      </template>
+    </el-alert>
+
     <DsDocSample
-      title-zh="本仓库当前用法（完整引入）"
-      title-en="This repo (full import)"
-      intro-zh="Vite + Vue 3，main.ts 完整注册 Element Plus；另含暗色变量表与文档壳层样式。"
-      intro-en="Full Element Plus registration in main.ts."
+      title-zh="1. 安装依赖"
+      title-en="1. Install"
+      intro-zh="在项目根目录执行。"
+      intro-en="Run in project root."
+      hide-preview
+      code-always-visible
+      :code="SNIPPET_INSTALL"
+    />
+
+    <DsDocSample
+      title-zh="2. 入口注册（与本仓库一致）"
+      title-en="2. Entry (same as this repo)"
+      intro-zh="main.ts 中完整引入样式与 Element Plus；业务项目可去掉 design-system 相关两行。"
+      intro-en="Full import in main.ts; drop design-system lines in your app if unused."
       hide-preview
       code-always-visible
       :code="SNIPPET_MAIN_THIS_REPO"
     />
-    <p class="ds-quick-after-sample">
-      <code>design-system.css</code>
-      ：侧栏与演示画布壳层；
-      <code>theme-chalk/dark/css-vars.css</code>
-      配合
-      <code>html[data-theme=&quot;dark&quot;]</code>
-      。
-    </p>
 
     <DsDocSample
-      title-zh="完整引入（官方最小示例）"
-      title-en="Official full import"
+      title-zh="3. 页面里使用"
+      title-en="3. Use in a page"
+      intro-zh="任意 .vue 中直接使用组件（已全局注册时）。"
+      intro-en="Use components in .vue when globally registered."
       hide-preview
       code-always-visible
-      :code="SNIPPET_MAIN_FULL"
+      :code="SNIPPET_HELLO_SFC"
     />
 
-    <DsDocSample
-      title-zh="按需导入（推荐新业务）"
-      title-en="On-demand import"
-      intro-zh="unplugin-vue-components + unplugin-auto-import + ElementPlusResolver。"
-      intro-en="Vite plugins for on-demand components."
-      hide-preview
-      code-always-visible
-      :code="SNIPPET_VITE_ON_DEMAND"
-    />
-    <p class="ds-quick-after-sample">
-      安装：
-      <code>npm i -D unplugin-vue-components unplugin-auto-import</code>
-    </p>
-
-    <p class="ds-token-section__intro" style="margin-bottom: 20px">
-      手动按组件 import 时，需配合
-      <code>unplugin-element-plus</code>
-      处理样式，见
-      <el-link href="https://element-plus.org/zh-CN/guide/quickstart" target="_blank" rel="noopener noreferrer" type="primary">
-        官方 · 手动导入
-      </el-link>
-      。
-    </p>
-
-    <DsDocSample
-      title-zh="Volar 与 TypeScript"
-      title-en="Volar & TS"
-      intro-zh="tsconfig 中 types 加入 element-plus/global。"
-      intro-en="Add element-plus/global to compilerOptions.types."
-      hide-preview
-      code-always-visible
-      :code="SNIPPET_TSCONFIG_TYPES"
-    />
-
-    <DsDocSample
-      title-zh="全局配置 size / zIndex"
-      title-en="Global config"
-      intro-zh="app.use(ElementPlus, { … }) 或 el-config-provider。"
-      intro-en="Global options or ConfigProvider."
-      hide-preview
-      code-always-visible
-      :code="SNIPPET_CONFIG_PROVIDER"
-    />
-
-    <DsDocSample
-      title-zh="在本设计系统中"
-      title-en="In this design system"
-      intro-zh="文档站与视觉样例说明。"
-      intro-en="Doc site and showcase."
-      code-always-visible
-      :code="SNIPPET_PANEL"
-    >
-      <div class="ds-ep__canvas ds-quick-start__panel">
-        <el-alert type="info" :closable="false" show-icon>
-          <template #title>文档站与样例页</template>
-          <ul class="ds-quick__list ds-quick__list--compact">
-            <li>
-              侧栏切换各组件演示；<strong>设计变量</strong>页列出
-              <code>--el-*</code>
-              ，<strong>颜色</strong>页为 Figma 色板。
-            </li>
-            <li>顶栏<strong>视觉样例</strong>或 <code>#/showcase</code> 为全屏页。</li>
-            <li><code>npm run dev</code>；离线构建 <code>npm run build:offline</code>。</li>
-          </ul>
-        </el-alert>
-        <el-divider />
-        <el-steps :active="3" finish-status="success" align-center>
-          <el-step title="安装依赖" description="element-plus、@element-plus/icons-vue" />
-          <el-step title="注册与样式" description="main.ts + CSS" />
-          <el-step title="对照文档开发" description="侧栏 + 官方 API" />
-        </el-steps>
-      </div>
-    </DsDocSample>
+    <el-collapse class="ds-quick-collapse">
+      <el-collapse-item :title="lang === 'zh' ? '更多：官方最小 main.ts（无设计系统样式）' : 'More: minimal main.ts (no DS CSS)'">
+        <DsDocSample
+          title-zh="完整引入（官方对照）"
+          title-en="Full import (official)"
+          hide-preview
+          code-always-visible
+          :code="SNIPPET_MAIN_FULL"
+        />
+      </el-collapse-item>
+      <el-collapse-item :title="lang === 'zh' ? '更多：按需导入（Vite）' : 'More: on-demand (Vite)'">
+        <p class="ds-quick-collapse__hint">
+          {{ lang === 'zh' ? '安装：' : 'Also install: ' }}
+          <code>npm i -D unplugin-vue-components unplugin-auto-import</code>
+        </p>
+        <DsDocSample
+          title-zh="vite.config"
+          title-en="vite.config"
+          hide-preview
+          code-always-visible
+          :code="SNIPPET_VITE_ON_DEMAND"
+        />
+        <p class="ds-quick-collapse__hint">
+          <template v-if="lang === 'zh'">
+            手动按组件 import 时需配合样式插件，见
+            <el-link href="https://element-plus.org/zh-CN/guide/quickstart" target="_blank" rel="noopener noreferrer" type="primary">官方 · 手动导入</el-link>。
+          </template>
+          <template v-else>Manual per-component import: see Element Plus guide for style plugins.</template>
+        </p>
+      </el-collapse-item>
+      <el-collapse-item :title="lang === 'zh' ? '更多：TypeScript / Volar' : 'More: TypeScript / Volar'">
+        <DsDocSample
+          title-zh="tsconfig"
+          title-en="tsconfig"
+          hide-preview
+          code-always-visible
+          :code="SNIPPET_TSCONFIG_TYPES"
+        />
+      </el-collapse-item>
+      <el-collapse-item :title="lang === 'zh' ? '更多：全局 size / zIndex' : 'More: Global size / zIndex'">
+        <DsDocSample
+          title-zh="el-config-provider"
+          title-en="el-config-provider"
+          hide-preview
+          code-always-visible
+          :code="SNIPPET_CONFIG_PROVIDER"
+        />
+      </el-collapse-item>
+    </el-collapse>
   </div>
 </template>
 
 <style scoped>
-.ds-quick-after-sample {
-  margin: 12px 0 32px;
+.ds-quick-tip {
+  margin-bottom: 24px;
+}
+
+.ds-quick-collapse {
+  margin-top: 8px;
+  border: none;
+  --el-collapse-header-bg-color: transparent;
+}
+
+.ds-quick-collapse :deep(.el-collapse-item__header) {
+  font-weight: 500;
+  color: var(--ds-text);
+}
+
+.ds-quick-collapse :deep(.el-collapse-item__wrap) {
+  border-bottom: 1px solid var(--ds-border);
+}
+
+.ds-quick-collapse__hint {
+  margin: 0 0 12px;
   font-size: 13px;
   line-height: 22px;
   color: var(--ds-text-secondary);

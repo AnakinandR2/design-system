@@ -119,7 +119,7 @@ onUnmounted(() => {
   <el-config-provider :locale="elLocale">
     <div class="ds-shell">
       <header class="ds-topnav" role="banner">
-        <a href="#" class="ds-brand" aria-label="Design System" @click.prevent>
+        <router-link to="/" class="ds-brand" aria-label="Design System">
           <span class="ds-brand__mark" aria-hidden="true">
             <svg width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
               <rect x="2" y="2" width="12" height="12" rx="2" class="ds-brand__tile ds-brand__tile--a" />
@@ -129,7 +129,7 @@ onUnmounted(() => {
             </svg>
           </span>
           <span class="ds-brand__text">{{ ui.brand }}</span>
-        </a>
+        </router-link>
 
         <div class="ds-topnav__actions">
           <button type="button" class="ds-btn ds-btn--ghost" @click="selectNav('delivery-package')">

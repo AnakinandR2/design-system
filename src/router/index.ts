@@ -1,11 +1,17 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import DesignSystemView from '../views/DesignSystemView.vue'
 import DesignShowcaseView from '../views/DesignShowcaseView.vue'
+import WelcomeView from '../views/WelcomeView.vue'
 
 /** Hash 路由：离线 file:// 可用；与 Vite `base` 一致以便 GitHub Pages 子路径部署 */
 export default createRouter({
   history: createWebHashHistory(import.meta.env.BASE_URL),
   routes: [
+    {
+      path: '/',
+      name: 'welcome',
+      component: WelcomeView,
+    },
     {
       path: '/showcase',
       name: 'design-showcase',

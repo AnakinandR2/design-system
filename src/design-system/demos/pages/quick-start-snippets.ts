@@ -57,3 +57,10 @@ import { ref } from 'vue'
 const size = ref<'default' | 'large' | 'small'>('default')
 const zIndex = ref(3000)
 </script>`
+
+/** 首屏「一页够用」：安装命令 + 最小页面 */
+export const SNIPPET_INSTALL = `npm install element-plus @element-plus/icons-vue`
+
+export const SNIPPET_HELLO_SFC = `<template>
+  <el-button type="primary">Hello Element Plus</el-button>
+</template>`
