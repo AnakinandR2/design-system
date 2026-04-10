@@ -99,6 +99,12 @@
   --ds-input-bg: #2a2a2b;
   --ds-topnav-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.08);
 
+  /* 与亮色一致；此前未定义会导致 var(--ds-radius-m) 无效，顶栏按钮等圆角在暗色下消失 */
+  --ds-radius-s: 4px;
+  --ds-radius-m: 6px;
+  --ds-font: -apple-system, blinkmacsystemfont, "PingFang SC", "Microsoft YaHei", "Segoe UI", roboto, "Helvetica Neue",
+    arial, sans-serif;
+
   --ds-brand-tile-a: var(--arco-primary);
   --ds-brand-tile-b: #5e96ff;
   --ds-brand-tile-c: #7eb5ff;
@@ -196,6 +202,12 @@ body {
   color: var(--ds-text);
 }
 
+/* 仅图标、无标题字时略收间距，保证点击区域 */
+.ds-brand--mark-only {
+  gap: 0;
+  padding: 4px 2px;
+}
+
 .ds-brand__tile--a {
   fill: var(--ds-brand-tile-a);
 }
@@ -287,6 +299,12 @@ a.ds-btn.ds-topnav-entry {
   color: var(--ds-primary);
   border-color: var(--ds-primary);
   background: var(--ds-nav-hover-bg);
+}
+
+/* 浅色顶栏：ghost 悬停用白底，避免灰块感（侧栏等仍用默认灰底） */
+:root[data-theme='light'] .ds-topnav .ds-btn--ghost:hover,
+:root[data-theme='light'] .ds-dash__header .ds-btn--ghost:hover {
+  background: #ffffff;
 }
 
 .ds-btn--primary {

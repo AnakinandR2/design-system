@@ -2,7 +2,6 @@ export type Lang = 'zh' | 'en'
 
 export const I18N = {
   zh: {
-    brand: 'design system',
     welcomeTitle: '企业级设计体系',
     welcomeSubtitle: '为设计师与开发者打造一致、高效的组件与交付体验。',
     welcomeHeadline1: '智能设计体系',
@@ -46,7 +45,6 @@ export const I18N = {
     topNavResources: '资源下载',
   },
   en: {
-    brand: 'design system',
     welcomeTitle: 'Enterprise design system',
     welcomeSubtitle: 'Consistent components and delivery for designers and developers.',
     welcomeHeadline1: 'Smart design system',

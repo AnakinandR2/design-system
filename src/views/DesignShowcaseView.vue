@@ -14,6 +14,7 @@ import {
   Setting,
 } from '@element-plus/icons-vue'
 import { ElMessage } from 'element-plus'
+import DsBrandMark from '../components/DsBrandMark.vue'
 import { I18N, type Lang } from '../design-system/nav'
 import { syncPageChromeBackground } from '../design-system/sync-page-background'
 
@@ -251,16 +252,10 @@ onMounted(() => {
         <!-- 顶栏：品牌、面包屑、搜索、语言/主题/通知/用户 -->
         <el-header class="ds-dash__header" height="56px">
           <div class="ds-dash__header-left">
-            <router-link to="/" class="ds-brand ds-dash__brand" aria-label="Design System">
+            <router-link to="/" class="ds-brand ds-brand--mark-only ds-dash__brand" aria-label="首页">
               <span class="ds-brand__mark" aria-hidden="true">
-                <svg width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <rect x="2" y="2" width="12" height="12" rx="2" class="ds-brand__tile ds-brand__tile--a" />
-                  <rect x="18" y="2" width="12" height="12" rx="2" class="ds-brand__tile ds-brand__tile--b" />
-                  <rect x="2" y="18" width="12" height="12" rx="2" class="ds-brand__tile ds-brand__tile--c" />
-                  <path d="M18 18h12v12H18V18z" class="ds-brand__tile ds-brand__tile--d" />
-                </svg>
+                <DsBrandMark :size="28" />
               </span>
-              <span class="ds-brand__text">{{ ui.brand }}</span>
             </router-link>
             <span class="ds-dash__header-divider" aria-hidden="true" />
             <el-breadcrumb class="ds-dash__breadcrumb" separator="/">

@@ -2,6 +2,7 @@
 import { computed, onMounted, provide, ref, watch } from 'vue'
 import zhCn from 'element-plus/es/locale/lang/zh-cn'
 import en from 'element-plus/es/locale/lang/en'
+import DsBrandMark from '../components/DsBrandMark.vue'
 import { I18N, type Lang } from '../design-system/nav'
 import { syncPageChromeBackground } from '../design-system/sync-page-background'
 
@@ -89,16 +90,10 @@ onMounted(() => {
       </div>
 
       <header class="ds-welcome__top ds-topnav" role="banner">
-        <router-link to="/" class="ds-brand" aria-label="Design System">
+        <router-link to="/" class="ds-brand ds-brand--mark-only" aria-label="首页">
           <span class="ds-brand__mark" aria-hidden="true">
-            <svg width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect x="2" y="2" width="12" height="12" rx="2" class="ds-brand__tile ds-brand__tile--a" />
-              <rect x="18" y="2" width="12" height="12" rx="2" class="ds-brand__tile ds-brand__tile--b" />
-              <rect x="2" y="18" width="12" height="12" rx="2" class="ds-brand__tile ds-brand__tile--c" />
-              <path d="M18 18h12v12H18V18z" class="ds-brand__tile ds-brand__tile--d" />
-            </svg>
+            <DsBrandMark :size="28" />
           </span>
-          <span class="ds-brand__text">{{ ui.brand }}</span>
         </router-link>
 
         <div class="ds-topnav__actions">
@@ -445,20 +440,198 @@ onMounted(() => {
   );
 }
 
-/* 去掉文档站 .ds-topnav 的 border-bottom + box-shadow（顶栏下那条细横线） */
+/* 首页顶栏：默认全透明；悬停整块变为实底（亮色白 / 暗色表面色），避免布局跳动用透明描边占位 */
 .ds-welcome__top.ds-topnav {
   position: relative;
   flex-shrink: 0;
   z-index: 10;
-  border-bottom: none !important;
+  border-bottom: 1px solid transparent !important;
   box-shadow: none !important;
-  background: rgba(255, 255, 255, 0.78) !important;
+  background: transparent !important;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  transition:
+    background-color 0.28s ease,
+    border-color 0.28s ease,
+    box-shadow 0.28s ease,
+    backdrop-filter 0.28s ease;
+}
+
+.ds-welcome__top.ds-topnav:hover {
+  background: #ffffff !important;
+  border-bottom-color: var(--ds-border) !important;
+  box-shadow: var(--ds-topnav-shadow) !important;
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
 }
 
-:root[data-theme='dark'] .ds-welcome__top.ds-topnav {
-  background: rgba(23, 23, 26, 0.78) !important;
+:root[data-theme='dark'] .ds-welcome__top.ds-topnav:hover {
+  background: var(--ds-bg-surface) !important;
+}
+
+/* —— 透明态：提高与复杂背景上的对比度（深字 + 亮描边式阴影 / 半透明白底按钮） —— */
+.ds-welcome__top.ds-topnav:not(:hover) .ds-brand__mark {
+  filter: none;
+}
+
+.ds-welcome__top.ds-topnav:not(:hover) a.ds-btn.ds-topnav-entry {
+  color: #0f172a;
+  border-color: rgba(15, 23, 42, 0.32);
+  background: rgba(255, 255, 255, 0.52);
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.75);
+}
+
+.ds-welcome__top.ds-topnav:not(:hover) a.ds-btn.ds-topnav-entry:hover {
+  color: var(--ds-primary);
+  border-color: var(--ds-primary);
+  background: rgba(255, 255, 255, 0.88);
+}
+
+.ds-welcome__top.ds-topnav:not(:hover) .ds-search {
+  background: rgba(255, 255, 255, 0.58);
+  border-color: rgba(15, 23, 42, 0.3);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.45);
+}
+
+.ds-welcome__top.ds-topnav:not(:hover) .ds-search__icon {
+  color: rgba(15, 23, 42, 0.55);
+}
+
+.ds-welcome__top.ds-topnav:not(:hover) .ds-search__input {
+  color: #0f172a;
+}
+
+.ds-welcome__top.ds-topnav:not(:hover) .ds-search__input::placeholder {
+  color: rgba(15, 23, 42, 0.42);
+}
+
+.ds-welcome__top.ds-topnav:not(:hover) .ds-topnav__actions > button.ds-btn--ghost:not(.ds-iconbtn) {
+  color: #0f172a;
+  border-color: rgba(15, 23, 42, 0.32);
+  background: rgba(255, 255, 255, 0.52);
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.75);
+}
+
+.ds-welcome__top.ds-topnav:not(:hover) .ds-topnav__actions > button.ds-btn--ghost:not(.ds-iconbtn):hover {
+  color: var(--ds-primary);
+  border-color: var(--ds-primary);
+  background: rgba(255, 255, 255, 0.88);
+}
+
+.ds-welcome__top.ds-topnav:not(:hover) .ds-iconbtn {
+  color: #0f172a;
+  border-color: rgba(15, 23, 42, 0.28);
+  background: rgba(255, 255, 255, 0.52);
+}
+
+.ds-welcome__top.ds-topnav:not(:hover) .ds-iconbtn:hover {
+  color: var(--ds-primary);
+  border-color: var(--ds-primary);
+  background: rgba(255, 255, 255, 0.88);
+}
+
+.ds-welcome__top.ds-topnav:not(:hover) .ds-btn--primary {
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.18);
+}
+
+/* 悬停顶栏：恢复设计系统默认顶栏语义（去掉透明态下的字重描边） */
+.ds-welcome__top.ds-topnav:hover a.ds-btn.ds-topnav-entry {
+  color: var(--ds-text-secondary);
+  border-color: var(--ds-border-strong);
+  background: transparent;
+  text-shadow: none;
+}
+
+.ds-welcome__top.ds-topnav:hover .ds-search {
+  background: var(--ds-input-bg);
+  border-color: var(--ds-border-strong);
+  box-shadow: none;
+}
+
+.ds-welcome__top.ds-topnav:hover .ds-search__icon {
+  color: var(--ds-text-placeholder);
+}
+
+.ds-welcome__top.ds-topnav:hover .ds-search__input {
+  color: var(--ds-text);
+}
+
+.ds-welcome__top.ds-topnav:hover .ds-search__input::placeholder {
+  color: var(--ds-text-placeholder);
+}
+
+.ds-welcome__top.ds-topnav:hover .ds-topnav__actions > button.ds-btn--ghost:not(.ds-iconbtn) {
+  color: var(--ds-text-secondary);
+  border-color: var(--ds-border-strong);
+  background: transparent;
+  text-shadow: none;
+}
+
+.ds-welcome__top.ds-topnav:hover .ds-iconbtn {
+  color: var(--ds-text-secondary);
+  border-color: transparent;
+  background: transparent;
+}
+
+.ds-welcome__top.ds-topnav:hover .ds-btn--primary {
+  box-shadow: none;
+}
+
+/* 暗色主题 · 透明顶栏 */
+:root[data-theme='dark'] .ds-welcome__top.ds-topnav:not(:hover) a.ds-btn.ds-topnav-entry {
+  color: #f1f5f9;
+  border-color: rgba(248, 250, 252, 0.38);
+  background: rgba(15, 23, 42, 0.48);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.85);
+}
+
+:root[data-theme='dark'] .ds-welcome__top.ds-topnav:not(:hover) a.ds-btn.ds-topnav-entry:hover {
+  color: var(--ds-primary-hover);
+  border-color: var(--ds-primary-hover);
+  background: rgba(30, 41, 59, 0.72);
+}
+
+:root[data-theme='dark'] .ds-welcome__top.ds-topnav:not(:hover) .ds-search {
+  background: rgba(15, 23, 42, 0.55);
+  border-color: rgba(248, 250, 252, 0.28);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.35);
+}
+
+:root[data-theme='dark'] .ds-welcome__top.ds-topnav:not(:hover) .ds-search__icon {
+  color: rgba(226, 232, 240, 0.65);
+}
+
+:root[data-theme='dark'] .ds-welcome__top.ds-topnav:not(:hover) .ds-search__input {
+  color: #f1f5f9;
+}
+
+:root[data-theme='dark'] .ds-welcome__top.ds-topnav:not(:hover) .ds-search__input::placeholder {
+  color: rgba(226, 232, 240, 0.45);
+}
+
+:root[data-theme='dark'] .ds-welcome__top.ds-topnav:not(:hover) .ds-topnav__actions > button.ds-btn--ghost:not(.ds-iconbtn) {
+  color: #f1f5f9;
+  border-color: rgba(248, 250, 252, 0.35);
+  background: rgba(15, 23, 42, 0.48);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.85);
+}
+
+:root[data-theme='dark'] .ds-welcome__top.ds-topnav:not(:hover) .ds-topnav__actions > button.ds-btn--ghost:not(.ds-iconbtn):hover {
+  color: var(--ds-primary-hover);
+  border-color: var(--ds-primary-hover);
+  background: rgba(30, 41, 59, 0.72);
+}
+
+:root[data-theme='dark'] .ds-welcome__top.ds-topnav:not(:hover) .ds-iconbtn {
+  color: #f1f5f9;
+  border-color: rgba(248, 250, 252, 0.3);
+  background: rgba(15, 23, 42, 0.48);
+}
+
+:root[data-theme='dark'] .ds-welcome__top.ds-topnav:not(:hover) .ds-iconbtn:hover {
+  color: var(--ds-primary-hover);
+  border-color: var(--ds-primary-hover);
+  background: rgba(30, 41, 59, 0.72);
 }
 
 .ds-welcome__main {
@@ -468,9 +641,9 @@ onMounted(() => {
   min-height: 0;
   display: flex;
   flex-direction: column;
-  align-items: stretch;
+  align-items: center;
   justify-content: center;
-  padding: 8px 16px 10px;
+  padding: 16px 24px 24px;
   box-sizing: border-box;
   overflow: hidden;
 }
@@ -478,16 +651,21 @@ onMounted(() => {
 .ds-welcome__center {
   flex: 1;
   min-height: 0;
+  width: 100%;
+  max-width: 960px;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  transform: translateY(-200px);
 }
 
 .ds-welcome__hero {
-  text-align: center;
+  width: 100%;
   max-width: 920px;
-  padding: 0 8px;
+  margin: 0 auto;
+  padding: 0 12px;
+  box-sizing: border-box;
+  text-align: center;
 }
 
 .ds-welcome__headline {

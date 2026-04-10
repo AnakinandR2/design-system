@@ -5,6 +5,7 @@ import en from 'element-plus/es/locale/lang/en'
 import { useRoute, useRouter } from 'vue-router'
 import { I18N, NAV_SECTIONS, type Lang, navLine, titleForNavId } from '../design-system/nav'
 import { apiRowsForNav, apiSubTablesForNav } from '../design-system/demos/api-rows'
+import DsBrandMark from '../components/DsBrandMark.vue'
 import { demoByNavId, getDemoForNavId } from '../design-system/demos/registry'
 import { syncPageChromeBackground } from '../design-system/sync-page-background'
 
@@ -128,16 +129,10 @@ onMounted(() => {
   <el-config-provider :locale="elLocale">
     <div class="ds-shell">
       <header class="ds-topnav" role="banner">
-        <router-link to="/" class="ds-brand" aria-label="Design System">
+        <router-link to="/" class="ds-brand ds-brand--mark-only" aria-label="首页">
           <span class="ds-brand__mark" aria-hidden="true">
-            <svg width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect x="2" y="2" width="12" height="12" rx="2" class="ds-brand__tile ds-brand__tile--a" />
-              <rect x="18" y="2" width="12" height="12" rx="2" class="ds-brand__tile ds-brand__tile--b" />
-              <rect x="2" y="18" width="12" height="12" rx="2" class="ds-brand__tile ds-brand__tile--c" />
-              <path d="M18 18h12v12H18V18z" class="ds-brand__tile ds-brand__tile--d" />
-            </svg>
+            <DsBrandMark :size="28" />
           </span>
-          <span class="ds-brand__text">{{ ui.brand }}</span>
         </router-link>
 
         <div class="ds-topnav__actions">
