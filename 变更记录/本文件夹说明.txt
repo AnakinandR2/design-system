@@ -1,0 +1,5 @@
+变更记录正文文件：CHANGELOG.md（与本目录同级）
+
+若左侧列表里本文件夹名字变成乱码，请到上一级目录打开英文文件夹：
+changelog/CHANGELOG.md
+（两处内容由 push:gh 脚本保持同步。）
