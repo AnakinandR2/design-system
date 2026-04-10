@@ -20,10 +20,15 @@ function todayISO() {
 }
 
 function getChangedFiles() {
+  const q = '-c core.quotepath=false'
+  const opts = { cwd: root, encoding: 'utf8' }
   try {
-    let o = execSync('git diff --cached --name-only --diff-filter=ACMRT', { cwd: root, encoding: 'utf8' }).trim()
-    if (!o) o = execSync('git diff --name-only HEAD --diff-filter=ACMRT', { cwd: root, encoding: 'utf8' }).trim()
-    const set = new Set(o.split(/\r?\n/).filter(Boolean))
+    let staged = execSync(`git ${q} diff --cached --name-only --diff-filter=ACMRT`, opts).trim()
+    let vsHead = execSync(`git ${q} diff --name-only HEAD --diff-filter=ACMRT`, opts).trim()
+    let untracked = execSync(`git ${q} ls-files --others --exclude-standard`, opts).trim()
+    const set = new Set(
+      [...staged.split(/\r?\n/), ...vsHead.split(/\r?\n/), ...untracked.split(/\r?\n/)].filter(Boolean)
+    )
     return [...set]
   } catch {
     return []

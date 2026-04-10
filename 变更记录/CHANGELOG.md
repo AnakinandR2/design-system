@@ -32,7 +32,10 @@
 - 新增 `scripts/push-with-changelog.mjs`，命令 **`npm run push:gh -- "提交说明"`**（说明可省略则使用默认文案）：在推送前自动向本文件 **当日** 小节追加一条发布记录，并执行 `git add` → `commit` → `push`。以后向 GitHub 发布请优先使用该命令，无需再手动维护本节日期标题下的每一条 bullet（仍可在自动记录后手动润色根因说明）。
 
 - Git 发布：首页顶栏悬停动效、push:gh 与变更记录维护
-- 涉及：package.json、src/views/WelcomeView.vue、"\345\217\230\346\233\264\350\256\260\345\275\225/CHANGELOG.md"
+- 涉及：package.json、src/views/WelcomeView.vue、变更记录/CHANGELOG.md、scripts/push-with-changelog.mjs
+
+- Git 发布：push-with-changelog 中文路径与未跟踪文件
+- 涉及：scripts/push-with-changelog.mjs、变更记录/CHANGELOG.md
 
 ---
 
