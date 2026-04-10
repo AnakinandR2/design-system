@@ -114,6 +114,12 @@
   --ds-canvas-border: #3f3f46;
   --ds-focus-ring: 0 0 0 2px var(--arco-primary-light-2);
 
+  /* 暗色 Secondary：在 Arco 思路上略提亮，适配本站弥散底/壳层不如纯黑深 */
+  --ds-btn-secondary-bg: rgba(255, 255, 255, 0.14);
+  --ds-btn-secondary-bg-hover: rgba(255, 255, 255, 0.22);
+  --ds-btn-secondary-bg-active: rgba(255, 255, 255, 0.3);
+  --ds-btn-secondary-text: rgba(255, 255, 255, 0.88);
+
   --arco-ease: cubic-bezier(0.34, 0.69, 0.1, 1);
   --arco-duration: 0.2s;
 
@@ -296,7 +302,11 @@ a.ds-btn.ds-topnav-entry {
   line-height: 22px;
   cursor: pointer;
   border: 1px solid transparent;
-  transition: background-color 0.2s, border-color 0.2s, color 0.2s;
+  transition:
+    background-color 0.2s,
+    border-color 0.2s,
+    color 0.2s,
+    box-shadow 0.2s;
 }
 
 .ds-btn--ghost {
@@ -331,6 +341,68 @@ a.ds-btn.ds-topnav-entry {
 .ds-btn--primary:active {
   background: var(--ds-primary-active);
   border-color: var(--ds-primary-active);
+}
+
+/* 暗色：与 Arco Button Primary 一致（透明描边 + 焦点环） */
+:root[data-theme='dark'] .ds-btn--primary {
+  border-color: transparent;
+}
+
+:root[data-theme='dark'] .ds-btn--primary:hover,
+:root[data-theme='dark'] .ds-btn--primary:active {
+  border-color: transparent;
+}
+
+:root[data-theme='dark'] .ds-btn--primary:focus-visible {
+  outline: none;
+  box-shadow: var(--ds-focus-ring);
+}
+
+/* 暗色顶栏 / 展示页顶栏 ghost：Arco Secondary，避免灰描边糊在深色条上 */
+:root[data-theme='dark'] .ds-topnav .ds-btn--ghost.ds-topnav-entry,
+:root[data-theme='dark'] .ds-topnav .ds-btn--ghost:not(.ds-iconbtn),
+:root[data-theme='dark'] .ds-dash__header .ds-btn--ghost.ds-topnav-entry,
+:root[data-theme='dark'] .ds-dash__header .ds-btn--ghost:not(.ds-iconbtn) {
+  background-color: var(--ds-btn-secondary-bg);
+  border-color: transparent;
+  color: var(--ds-btn-secondary-text);
+}
+
+:root[data-theme='dark'] .ds-topnav .ds-btn--ghost.ds-topnav-entry:hover,
+:root[data-theme='dark'] .ds-topnav .ds-btn--ghost:not(.ds-iconbtn):hover,
+:root[data-theme='dark'] .ds-dash__header .ds-btn--ghost.ds-topnav-entry:hover,
+:root[data-theme='dark'] .ds-dash__header .ds-btn--ghost:not(.ds-iconbtn):hover {
+  background-color: var(--ds-btn-secondary-bg-hover);
+  border-color: transparent;
+  color: var(--ds-btn-secondary-text);
+}
+
+:root[data-theme='dark'] .ds-topnav .ds-btn--ghost.ds-topnav-entry:active,
+:root[data-theme='dark'] .ds-topnav .ds-btn--ghost:not(.ds-iconbtn):active,
+:root[data-theme='dark'] .ds-dash__header .ds-btn--ghost.ds-topnav-entry:active,
+:root[data-theme='dark'] .ds-dash__header .ds-btn--ghost:not(.ds-iconbtn):active {
+  background-color: var(--ds-btn-secondary-bg-active);
+  border-color: transparent;
+  color: var(--ds-btn-secondary-text);
+}
+
+:root[data-theme='dark'] .ds-topnav .ds-iconbtn,
+:root[data-theme='dark'] .ds-dash__header .ds-iconbtn {
+  background-color: var(--ds-btn-secondary-bg);
+  border-color: transparent;
+  color: var(--ds-btn-secondary-text);
+}
+
+:root[data-theme='dark'] .ds-topnav .ds-iconbtn:hover,
+:root[data-theme='dark'] .ds-dash__header .ds-iconbtn:hover {
+  background-color: var(--ds-btn-secondary-bg-hover);
+  border-color: transparent;
+  color: var(--ds-btn-secondary-text);
+}
+
+:root[data-theme='dark'] .ds-topnav .ds-iconbtn:active,
+:root[data-theme='dark'] .ds-dash__header .ds-iconbtn:active {
+  background-color: var(--ds-btn-secondary-bg-active);
 }
 
 .ds-iconbtn {

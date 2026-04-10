@@ -47,6 +47,9 @@
 - Git 发布：Logo 双稿与顶栏对齐、首页反白标与淡阴影
 - 涉及：src/assets/design-system.css、src/components/DsBrandMark.vue、src/views/DesignShowcaseView.vue、src/views/DesignSystemView.vue、src/views/WelcomeView.vue、变更记录/CHANGELOG.md、public/logo-dark-bg.svg、public/logo-light-bg.svg
 
+- Git 发布：style: 暗色按钮对齐 Arco 并提亮 Secondary、首页透明顶栏
+- 涉及：src/assets/design-system.css、src/views/WelcomeView.vue
+
 ---
 
 ## 2026-04-09

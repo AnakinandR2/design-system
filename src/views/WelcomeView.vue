@@ -265,7 +265,7 @@ onMounted(() => {
   top: 28%;
   left: 10%;
   background: radial-gradient(circle, rgba(56, 189, 248, 0.9) 0%, rgba(59, 130, 246, 0.2) 55%, transparent 70%);
-  animation: welcome-blob-f1 9s ease-in-out infinite;
+  animation: welcome-blob-f1 9s infinite;
 }
 
 .ds-welcome__blob-f--2 {
@@ -274,7 +274,7 @@ onMounted(() => {
   top: 32%;
   right: 8%;
   background: radial-gradient(circle, rgba(167, 139, 250, 0.85) 0%, rgba(99, 102, 241, 0.25) 50%, transparent 68%);
-  animation: welcome-blob-f2 11s ease-in-out infinite;
+  animation: welcome-blob-f2 11s infinite;
 }
 
 .ds-welcome__blob-f--3 {
@@ -283,7 +283,7 @@ onMounted(() => {
   top: 44%;
   left: 36%;
   background: radial-gradient(circle, rgba(14, 165, 233, 0.75) 0%, rgba(37, 99, 235, 0.3) 45%, transparent 65%);
-  animation: welcome-blob-f3 10s ease-in-out infinite;
+  animation: welcome-blob-f3 10s infinite;
 }
 
 .ds-welcome__blob--a {
@@ -292,7 +292,7 @@ onMounted(() => {
   top: 10%;
   left: 12%;
   background: radial-gradient(circle at 30% 30%, rgba(56, 189, 248, 0.95), rgba(59, 130, 246, 0.45));
-  animation: welcome-blob-a 12s ease-in-out infinite;
+  animation: welcome-blob-a 12s infinite;
 }
 
 .ds-welcome__blob--b {
@@ -301,7 +301,7 @@ onMounted(() => {
   top: 22%;
   right: 10%;
   background: radial-gradient(circle at 70% 40%, rgba(147, 197, 253, 0.9), rgba(99, 102, 241, 0.35));
-  animation: welcome-blob-b 14s ease-in-out infinite;
+  animation: welcome-blob-b 14s infinite;
 }
 
 .ds-welcome__blob--c {
@@ -310,7 +310,7 @@ onMounted(() => {
   top: 40%;
   left: 18%;
   background: radial-gradient(circle at 50% 50%, rgba(37, 99, 235, 0.75), rgba(14, 165, 233, 0.3));
-  animation: welcome-blob-c 13s ease-in-out infinite;
+  animation: welcome-blob-c 13s infinite;
 }
 
 .ds-welcome__blob--d {
@@ -319,92 +319,126 @@ onMounted(() => {
   top: 46%;
   right: 14%;
   background: radial-gradient(circle at 40% 60%, rgba(253, 186, 116, 0.55), rgba(196, 181, 253, 0.4));
-  animation: welcome-blob-d 15s ease-in-out infinite;
+  animation: welcome-blob-d 15s infinite;
 }
 
 @keyframes welcome-blob-a {
-  0%,
-  100% {
+  0% {
     transform: translate3d(0, 0, 0) scale(1);
+    animation-timing-function: ease-out;
   }
   33% {
     transform: translate3d(6.5vw, 4vh, 0) scale(1.14);
+    animation-timing-function: ease-in-out;
   }
   66% {
     transform: translate3d(-5.5vw, 6.5vh, 0) scale(0.9);
+    animation-timing-function: ease-in;
+  }
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
   }
 }
 
 @keyframes welcome-blob-b {
-  0%,
-  100% {
+  0% {
     transform: translate3d(0, 0, 0) scale(1);
+    animation-timing-function: ease-out;
   }
   40% {
     transform: translate3d(-7.5vw, 5vh, 0) scale(1.12);
+    animation-timing-function: ease-in-out;
   }
   70% {
     transform: translate3d(6.5vw, -4vh, 0) scale(0.88);
+    animation-timing-function: ease-in;
+  }
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
   }
 }
 
 @keyframes welcome-blob-c {
-  0%,
-  100% {
+  0% {
     transform: translate3d(0, 0, 0) scale(1);
+    animation-timing-function: ease-out;
   }
   45% {
     transform: translate3d(6.5vw, -6.5vh, 0) scale(1.14);
+    animation-timing-function: ease-in-out;
   }
   75% {
     transform: translate3d(-6.5vw, 4vh, 0) scale(0.86);
+    animation-timing-function: ease-in;
+  }
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
   }
 }
 
 @keyframes welcome-blob-d {
-  0%,
-  100% {
+  0% {
     transform: translate3d(0, 0, 0) scale(1);
+    animation-timing-function: ease-out;
   }
   35% {
     transform: translate3d(-6.5vw, -5vh, 0) scale(1.1);
+    animation-timing-function: ease-in-out;
   }
   65% {
     transform: translate3d(6.5vw, 5vh, 0) scale(0.9);
+    animation-timing-function: ease-in;
+  }
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
   }
 }
 
 @keyframes welcome-blob-f1 {
-  0%,
-  100% {
+  0% {
     transform: translate3d(0, 0, 0) scale(1);
     opacity: 0.7;
+    animation-timing-function: ease-out;
   }
   50% {
     transform: translate3d(8vw, 5.5vh, 0) scale(1.17);
     opacity: 1;
+    animation-timing-function: ease-in;
+  }
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 0.7;
   }
 }
 
 @keyframes welcome-blob-f2 {
-  0%,
-  100% {
+  0% {
     transform: translate3d(0, 0, 0) scale(1);
+    animation-timing-function: ease-out;
   }
   50% {
     transform: translate3d(-9vw, 5.5vh, 0) scale(1.14);
+    animation-timing-function: ease-in;
+  }
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
   }
 }
 
 @keyframes welcome-blob-f3 {
-  0%,
-  100% {
+  0% {
     transform: translate3d(0, 0, 0) scale(1);
     opacity: 0.65;
+    animation-timing-function: ease-out;
   }
   45% {
     transform: translate3d(5.5vw, -5.5vh, 0) scale(1.16);
     opacity: 0.98;
+    animation-timing-function: ease-in;
+  }
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 0.65;
   }
 }
 
@@ -629,42 +663,61 @@ onMounted(() => {
   box-shadow: none;
 }
 
+/* 暗色 + 顶栏实底：与 Arco Secondary 一致（与文档站 .ds-topnav 暗色 ghost 同源 token） */
+:root[data-theme='dark'] .ds-welcome__top.ds-topnav:hover a.ds-btn.ds-topnav-entry {
+  background-color: var(--ds-btn-secondary-bg);
+  border-color: transparent;
+  color: var(--ds-btn-secondary-text);
+}
+
 :root[data-theme='dark'] .ds-welcome__top.ds-topnav:hover a.ds-btn.ds-topnav-entry:hover {
-  color: var(--ds-primary-hover);
-  border-color: var(--ds-primary-hover);
-  background: var(--ds-nav-hover-bg);
+  background-color: var(--ds-btn-secondary-bg-hover);
+  border-color: transparent;
+  color: var(--ds-btn-secondary-text);
+}
+
+:root[data-theme='dark'] .ds-welcome__top.ds-topnav:hover .ds-topnav__actions > button.ds-btn--ghost:not(.ds-iconbtn) {
+  background-color: var(--ds-btn-secondary-bg);
+  border-color: transparent;
+  color: var(--ds-btn-secondary-text);
 }
 
 :root[data-theme='dark'] .ds-welcome__top.ds-topnav:hover .ds-topnav__actions > button.ds-btn--ghost:not(.ds-iconbtn):hover {
-  color: var(--ds-primary-hover);
-  border-color: var(--ds-primary-hover);
-  background: var(--ds-nav-hover-bg);
+  background-color: var(--ds-btn-secondary-bg-hover);
+  border-color: transparent;
+  color: var(--ds-btn-secondary-text);
+}
+
+:root[data-theme='dark'] .ds-welcome__top.ds-topnav:hover .ds-iconbtn {
+  background-color: var(--ds-btn-secondary-bg);
+  border-color: transparent;
+  color: var(--ds-btn-secondary-text);
 }
 
 :root[data-theme='dark'] .ds-welcome__top.ds-topnav:hover .ds-iconbtn:hover {
-  color: var(--ds-primary-hover);
-  border-color: var(--ds-primary-hover);
-  background: var(--ds-nav-hover-bg);
+  background-color: var(--ds-btn-secondary-bg-hover);
+  border-color: transparent;
+  color: var(--ds-btn-secondary-text);
 }
 
 /* 暗色主题 · 透明顶栏 */
 :root[data-theme='dark'] .ds-welcome__top.ds-topnav:not(:hover) a.ds-btn.ds-topnav-entry {
-  color: #f1f5f9;
-  border-color: rgba(248, 250, 252, 0.38);
-  background: rgba(15, 23, 42, 0.48);
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.85);
+  color: #f8fafc;
+  border-color: rgba(248, 250, 252, 0.42);
+  background: rgba(15, 23, 42, 0.36);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.65);
 }
 
 :root[data-theme='dark'] .ds-welcome__top.ds-topnav:not(:hover) a.ds-btn.ds-topnav-entry:hover {
   color: var(--ds-primary-hover);
   border-color: var(--ds-primary-hover);
-  background: rgba(30, 41, 59, 0.72);
+  background: rgba(30, 41, 59, 0.52);
 }
 
 :root[data-theme='dark'] .ds-welcome__top.ds-topnav:not(:hover) .ds-search {
-  background: rgba(15, 23, 42, 0.55);
-  border-color: rgba(248, 250, 252, 0.28);
-  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.35);
+  background: rgba(15, 23, 42, 0.4);
+  border-color: rgba(248, 250, 252, 0.32);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.25);
 }
 
 :root[data-theme='dark'] .ds-welcome__top.ds-topnav:not(:hover) .ds-search__icon {
@@ -680,28 +733,28 @@ onMounted(() => {
 }
 
 :root[data-theme='dark'] .ds-welcome__top.ds-topnav:not(:hover) .ds-topnav__actions > button.ds-btn--ghost:not(.ds-iconbtn) {
-  color: #f1f5f9;
-  border-color: rgba(248, 250, 252, 0.35);
-  background: rgba(15, 23, 42, 0.48);
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.85);
+  color: #f8fafc;
+  border-color: rgba(248, 250, 252, 0.4);
+  background: rgba(15, 23, 42, 0.36);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.65);
 }
 
 :root[data-theme='dark'] .ds-welcome__top.ds-topnav:not(:hover) .ds-topnav__actions > button.ds-btn--ghost:not(.ds-iconbtn):hover {
   color: var(--ds-primary-hover);
   border-color: var(--ds-primary-hover);
-  background: rgba(30, 41, 59, 0.72);
+  background: rgba(30, 41, 59, 0.52);
 }
 
 :root[data-theme='dark'] .ds-welcome__top.ds-topnav:not(:hover) .ds-iconbtn {
-  color: #f1f5f9;
-  border-color: rgba(248, 250, 252, 0.3);
-  background: rgba(15, 23, 42, 0.48);
+  color: #f8fafc;
+  border-color: rgba(248, 250, 252, 0.36);
+  background: rgba(15, 23, 42, 0.36);
 }
 
 :root[data-theme='dark'] .ds-welcome__top.ds-topnav:not(:hover) .ds-iconbtn:hover {
   color: var(--ds-primary-hover);
   border-color: var(--ds-primary-hover);
-  background: rgba(30, 41, 59, 0.72);
+  background: rgba(30, 41, 59, 0.52);
 }
 
 .ds-welcome__main {
@@ -819,6 +872,7 @@ onMounted(() => {
     background-color 0.2s,
     border-color 0.2s,
     color 0.2s,
+    box-shadow 0.2s,
     transform 0.15s;
 }
 
@@ -852,14 +906,34 @@ onMounted(() => {
   background: #fff;
 }
 
+/* 暗色 CTA 次按钮：Arco Button Secondary（与顶栏 ghost 同源） */
+:root[data-theme='dark'] .ds-welcome__btn--primary {
+  border-color: transparent;
+}
+
+:root[data-theme='dark'] .ds-welcome__btn--primary:hover,
+:root[data-theme='dark'] .ds-welcome__btn--primary:active {
+  border-color: transparent;
+}
+
+:root[data-theme='dark'] .ds-welcome__btn--primary:focus-visible {
+  outline: none;
+  box-shadow: var(--ds-focus-ring);
+}
+
 :root[data-theme='dark'] .ds-welcome__btn--white {
-  background: rgba(255, 255, 255, 0.08);
-  border-color: var(--ds-border);
-  color: var(--ds-text);
+  background-color: var(--ds-btn-secondary-bg);
+  border-color: transparent;
+  color: var(--ds-btn-secondary-text);
 }
 
 :root[data-theme='dark'] .ds-welcome__btn--white:hover {
-  background: rgba(255, 255, 255, 0.12);
-  color: var(--ds-primary-hover);
+  background-color: var(--ds-btn-secondary-bg-hover);
+  border-color: transparent;
+  color: var(--ds-btn-secondary-text);
+}
+
+:root[data-theme='dark'] .ds-welcome__btn--white:active {
+  background-color: var(--ds-btn-secondary-bg-active);
 }
 </style>
