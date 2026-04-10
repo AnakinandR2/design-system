@@ -21,6 +21,19 @@
 
 - 新增本目录与本文件，用于集中记录版本级变更。
 
+### 修复：首页顶栏按钮悬停无动效（同日补充）
+
+- **现象**：仅在首页（`WelcomeView`）时，顶栏 ghost 按钮（文档入口、语言、主题等）鼠标悬停几乎无颜色/背景反馈。
+- **根因**：CSS 中「悬停在子元素上时，祖先 `header` 也会匹配 `:hover`」。因此只要指针移到按钮上，`.ds-welcome__top.ds-topnav:not(:hover) …` 整段不再生效，而 `.ds-welcome__top.ds-topnav:hover a.ds-btn…` **未带子元素自身的 `:hover`**，会把「当前正悬停的那颗按钮」也设成 `background: transparent`；该规则经 Vue `scoped` 后优先级高于全局 `.ds-btn--ghost:hover`，结果盖掉了本应出现的悬停样式。
+- **修复**：在「顶栏已处于 `:hover`」的前提下，为 `a.ds-topnav-entry:hover`、语言 `button:hover`、`.iconbtn:hover` 单独写明颜色/边框/背景（亮色白底、暗色 `var(--ds-nav-hover-bg)`），与文档站顶栏体验一致。
+
+### 发布流程
+
+- 新增 `scripts/push-with-changelog.mjs`，命令 **`npm run push:gh -- "提交说明"`**（说明可省略则使用默认文案）：在推送前自动向本文件 **当日** 小节追加一条发布记录，并执行 `git add` → `commit` → `push`。以后向 GitHub 发布请优先使用该命令，无需再手动维护本节日期标题下的每一条 bullet（仍可在自动记录后手动润色根因说明）。
+
+- Git 发布：首页顶栏悬停动效、push:gh 与变更记录维护
+- 涉及：package.json、src/views/WelcomeView.vue、"\345\217\230\346\233\264\350\256\260\345\275\225/CHANGELOG.md"
+
 ---
 
 ## 2026-04-09
@@ -71,5 +84,6 @@
 
 ## 维护说明
 
-- 发布前可在此文件顶部追加当日小节，并执行 `git add 变更记录/ && git commit`。
+- **向 GitHub 发布**：在项目根目录执行 **`npm run push:gh -- "提交说明"`**（脚本会先向本文件当日小节追加发布记录，再 `git add` / `commit` / `push`）。说明可省略则使用默认文案。
+- 若需单独手写根因或润色，可在自动追加后编辑当日小节，再执行一次 `push:gh` 或手动 `git commit`。
 - 线上地址（配置为 GitHub Actions 部署时）：`https://anakinandr2.github.io/design-system/`

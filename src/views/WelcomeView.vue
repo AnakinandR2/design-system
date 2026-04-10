@@ -542,6 +542,16 @@ onMounted(() => {
   text-shadow: none;
 }
 
+/*
+ * 指针在顶栏内时 header 也会匹配 :hover，上面规则会作用在「当前正悬停」的链接上。
+ * 必须单独写 a:hover / button:hover，否则透明背景盖住全局 ghost:hover（且 scoped 优先级更高）→ 看起来无动效。
+ */
+.ds-welcome__top.ds-topnav:hover a.ds-btn.ds-topnav-entry:hover {
+  color: var(--ds-primary);
+  border-color: var(--ds-primary);
+  background: #ffffff;
+}
+
 .ds-welcome__top.ds-topnav:hover .ds-search {
   background: var(--ds-input-bg);
   border-color: var(--ds-border-strong);
@@ -567,14 +577,44 @@ onMounted(() => {
   text-shadow: none;
 }
 
+.ds-welcome__top.ds-topnav:hover .ds-topnav__actions > button.ds-btn--ghost:not(.ds-iconbtn):hover {
+  color: var(--ds-primary);
+  border-color: var(--ds-primary);
+  background: #ffffff;
+}
+
 .ds-welcome__top.ds-topnav:hover .ds-iconbtn {
   color: var(--ds-text-secondary);
   border-color: transparent;
   background: transparent;
 }
 
+.ds-welcome__top.ds-topnav:hover .ds-iconbtn:hover {
+  color: var(--ds-primary);
+  border-color: var(--ds-primary);
+  background: #ffffff;
+}
+
 .ds-welcome__top.ds-topnav:hover .ds-btn--primary {
   box-shadow: none;
+}
+
+:root[data-theme='dark'] .ds-welcome__top.ds-topnav:hover a.ds-btn.ds-topnav-entry:hover {
+  color: var(--ds-primary-hover);
+  border-color: var(--ds-primary-hover);
+  background: var(--ds-nav-hover-bg);
+}
+
+:root[data-theme='dark'] .ds-welcome__top.ds-topnav:hover .ds-topnav__actions > button.ds-btn--ghost:not(.ds-iconbtn):hover {
+  color: var(--ds-primary-hover);
+  border-color: var(--ds-primary-hover);
+  background: var(--ds-nav-hover-bg);
+}
+
+:root[data-theme='dark'] .ds-welcome__top.ds-topnav:hover .ds-iconbtn:hover {
+  color: var(--ds-primary-hover);
+  border-color: var(--ds-primary-hover);
+  background: var(--ds-nav-hover-bg);
 }
 
 /* 暗色主题 · 透明顶栏 */

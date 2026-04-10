@@ -12,7 +12,8 @@
     "pack:delivery": "node scripts/pack-delivery.mjs",
     "pack:delivery:offline": "node scripts/pack-delivery.mjs --offline",
     "pack:delivery:cursor": "npx tsx scripts/build-cursor-delivery.ts",
-    "sync-delivery": "node scripts/sync-delivery-downloads.mjs"
+    "sync-delivery": "node scripts/sync-delivery-downloads.mjs",
+    "push:gh": "node scripts/push-with-changelog.mjs"
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.3.2",
