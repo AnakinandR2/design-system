@@ -9,7 +9,7 @@
 
 ### 品牌与顶栏文案
 
-- 顶栏 Logo 替换为香蕉图形（资源：`public/banana-logo.svg`），通过组件 `src/components/DsBrandMark.vue` 引用，支持 `base` 子路径部署。
+- 顶栏 Logo：`public/logo-light-bg.svg`（浅色界面 / 官方浅色底稿）、`public/logo-dark-bg.svg`（深色界面 / 官方深色底反白稿），由 `DsBrandMark.vue` 随 `html[data-theme]` 切换；支持 `base` 子路径部署。（曾用香蕉占位图 `banana-logo.svg` 已移除。）
 - 移除顶栏「design system」文字；`src/design-system/nav.ts` 删除中英 `brand` 字段。
 - 品牌链接 `aria-label` 统一为「首页」；新增全局样式 `.ds-brand--mark-only`（仅图标时的间距与点击区域）。
 
@@ -43,6 +43,9 @@
 
 - Git 发布：style: 首页弥散色块呼吸幅度加大
 - 涉及：src/views/WelcomeView.vue、变更记录/CHANGELOG.md
+
+- Git 发布：Logo 双稿与顶栏对齐、首页反白标与淡阴影
+- 涉及：src/assets/design-system.css、src/components/DsBrandMark.vue、src/views/DesignShowcaseView.vue、src/views/DesignSystemView.vue、src/views/WelcomeView.vue、变更记录/CHANGELOG.md、public/logo-dark-bg.svg、public/logo-light-bg.svg
 
 ---
 

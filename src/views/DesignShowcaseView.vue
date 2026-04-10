@@ -254,7 +254,7 @@ onMounted(() => {
           <div class="ds-dash__header-left">
             <router-link to="/" class="ds-brand ds-brand--mark-only ds-dash__brand" aria-label="首页">
               <span class="ds-brand__mark" aria-hidden="true">
-                <DsBrandMark :size="28" />
+                <DsBrandMark :size="34" />
               </span>
             </router-link>
             <span class="ds-dash__header-divider" aria-hidden="true" />
@@ -715,7 +715,7 @@ onMounted(() => {
 /* 顶栏：与 .ds-topnav 同高、同左右内边距；左侧品牌+面包屑，右侧四个全局入口+搜索与操作 */
 .ds-dash__header {
   display: flex !important;
-  align-items: center;
+  align-items: stretch;
   justify-content: space-between;
   gap: 16px;
   flex-wrap: nowrap;
@@ -731,6 +731,7 @@ onMounted(() => {
 .ds-dash__header-left {
   display: flex;
   align-items: center;
+  align-self: stretch;
   gap: 4px;
   min-width: 0;
   flex: 1 1 0;
@@ -770,6 +771,7 @@ onMounted(() => {
 .ds-dash__header-right {
   display: flex;
   align-items: center;
+  align-self: stretch;
   gap: 8px;
   flex-wrap: nowrap;
   flex-shrink: 0;

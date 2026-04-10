@@ -92,7 +92,7 @@ onMounted(() => {
       <header class="ds-welcome__top ds-topnav" role="banner">
         <router-link to="/" class="ds-brand ds-brand--mark-only" aria-label="首页">
           <span class="ds-brand__mark" aria-hidden="true">
-            <DsBrandMark :size="28" />
+            <DsBrandMark :size="34" />
           </span>
         </router-link>
 
@@ -471,7 +471,37 @@ onMounted(() => {
 
 /* —— 透明态：提高与复杂背景上的对比度（深字 + 亮描边式阴影 / 半透明白底按钮） —— */
 .ds-welcome__top.ds-topnav:not(:hover) .ds-brand__mark {
+  background: transparent;
+  box-shadow: none;
+  padding: 0;
+  border-radius: 0;
+}
+
+/* 浅色 + 透明顶栏（未悬停）：彩色标在复杂底图上不易辨认，改用反白稿；暗描边式投影兼顾浅色区域 */
+:root[data-theme='light'] .ds-welcome__top.ds-topnav:not(:hover) .ds-brand__mark {
+  /* 比此前更淡，仍保留一层轻轮廓避免白标在亮底上发糊 */
+  filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.2)) drop-shadow(0 0 1.5px rgba(0, 0, 0, 0.14));
+}
+
+:root[data-theme='light'] .ds-welcome__top.ds-topnav:not(:hover) :deep(.ds-brand-mark__img--light-ui) {
+  display: none !important;
+}
+
+:root[data-theme='light'] .ds-welcome__top.ds-topnav:not(:hover) :deep(.ds-brand-mark__img--dark-ui) {
+  display: block !important;
+}
+
+/* 浅色 + 顶栏实底悬停：恢复彩色稿（白底上对比足够） */
+:root[data-theme='light'] .ds-welcome__top.ds-topnav:hover .ds-brand__mark {
   filter: none;
+}
+
+:root[data-theme='light'] .ds-welcome__top.ds-topnav:hover :deep(.ds-brand-mark__img--light-ui) {
+  display: block !important;
+}
+
+:root[data-theme='light'] .ds-welcome__top.ds-topnav:hover :deep(.ds-brand-mark__img--dark-ui) {
+  display: none !important;
 }
 
 .ds-welcome__top.ds-topnav:not(:hover) a.ds-btn.ds-topnav-entry {

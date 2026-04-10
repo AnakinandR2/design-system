@@ -170,7 +170,7 @@ body {
 /* —— 顶栏 —— */
 .ds-topnav {
   display: flex;
-  align-items: center;
+  align-items: stretch;
   justify-content: space-between;
   gap: 16px;
   height: var(--ds-topnav-height);
@@ -202,10 +202,19 @@ body {
   color: var(--ds-text);
 }
 
-/* 仅图标、无标题字时略收间距，保证点击区域 */
+/* 仅图标：与顶栏 32px 控件同一垂直中线（顶栏 stretch + 内部居中，避免行高/上下 padding 造成视差） */
+.ds-brand__mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 0;
+}
+
 .ds-brand--mark-only {
   gap: 0;
-  padding: 4px 2px;
+  align-self: stretch;
+  padding: 0 4px 0 2px;
+  line-height: 0;
 }
 
 .ds-brand__tile--a {
@@ -224,6 +233,7 @@ body {
 .ds-topnav__actions {
   display: flex;
   align-items: center;
+  align-self: stretch;
   gap: 8px;
   flex-wrap: wrap;
   justify-content: flex-end;

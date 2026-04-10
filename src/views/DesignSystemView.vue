@@ -131,7 +131,7 @@ onMounted(() => {
       <header class="ds-topnav" role="banner">
         <router-link to="/" class="ds-brand ds-brand--mark-only" aria-label="首页">
           <span class="ds-brand__mark" aria-hidden="true">
-            <DsBrandMark :size="28" />
+            <DsBrandMark :size="34" />
           </span>
         </router-link>
 
