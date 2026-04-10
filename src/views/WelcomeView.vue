@@ -328,10 +328,10 @@ onMounted(() => {
     transform: translate3d(0, 0, 0) scale(1);
   }
   33% {
-    transform: translate3d(5vw, 3vh, 0) scale(1.1);
+    transform: translate3d(6.5vw, 4vh, 0) scale(1.14);
   }
   66% {
-    transform: translate3d(-4vw, 5vh, 0) scale(0.94);
+    transform: translate3d(-5.5vw, 6.5vh, 0) scale(0.9);
   }
 }
 
@@ -341,10 +341,10 @@ onMounted(() => {
     transform: translate3d(0, 0, 0) scale(1);
   }
   40% {
-    transform: translate3d(-6vw, 4vh, 0) scale(1.08);
+    transform: translate3d(-7.5vw, 5vh, 0) scale(1.12);
   }
   70% {
-    transform: translate3d(5vw, -3vh, 0) scale(0.92);
+    transform: translate3d(6.5vw, -4vh, 0) scale(0.88);
   }
 }
 
@@ -354,10 +354,10 @@ onMounted(() => {
     transform: translate3d(0, 0, 0) scale(1);
   }
   45% {
-    transform: translate3d(5vw, -5vh, 0) scale(1.1);
+    transform: translate3d(6.5vw, -6.5vh, 0) scale(1.14);
   }
   75% {
-    transform: translate3d(-5vw, 3vh, 0) scale(0.9);
+    transform: translate3d(-6.5vw, 4vh, 0) scale(0.86);
   }
 }
 
@@ -367,10 +367,10 @@ onMounted(() => {
     transform: translate3d(0, 0, 0) scale(1);
   }
   35% {
-    transform: translate3d(-5vw, -4vh, 0) scale(1.06);
+    transform: translate3d(-6.5vw, -5vh, 0) scale(1.1);
   }
   65% {
-    transform: translate3d(5vw, 4vh, 0) scale(0.94);
+    transform: translate3d(6.5vw, 5vh, 0) scale(0.9);
   }
 }
 
@@ -378,10 +378,10 @@ onMounted(() => {
   0%,
   100% {
     transform: translate3d(0, 0, 0) scale(1);
-    opacity: 0.75;
+    opacity: 0.7;
   }
   50% {
-    transform: translate3d(6vw, 4vh, 0) scale(1.12);
+    transform: translate3d(8vw, 5.5vh, 0) scale(1.17);
     opacity: 1;
   }
 }
@@ -392,7 +392,7 @@ onMounted(() => {
     transform: translate3d(0, 0, 0) scale(1);
   }
   50% {
-    transform: translate3d(-7vw, 4vh, 0) scale(1.1);
+    transform: translate3d(-9vw, 5.5vh, 0) scale(1.14);
   }
 }
 
@@ -400,11 +400,11 @@ onMounted(() => {
   0%,
   100% {
     transform: translate3d(0, 0, 0) scale(1);
-    opacity: 0.7;
+    opacity: 0.65;
   }
   45% {
-    transform: translate3d(4vw, -4vh, 0) scale(1.12);
-    opacity: 0.95;
+    transform: translate3d(5.5vw, -5.5vh, 0) scale(1.16);
+    opacity: 0.98;
   }
 }
 
