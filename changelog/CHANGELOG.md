@@ -5,6 +5,13 @@
 
 ---
 
+## 2026-04-17
+
+- style: 筛选区行间距 16→20px、date-picker 对齐 Figma 规格（图标右置/圆角 6px/内部 gap 8px）+ 脚本 CRLF 修复与按天汇总
+  - 涉及：scripts/push-with-changelog.mjs、src/assets/design-system.css、src/views/DesignShowcaseView.vue
+
+---
+
 ## 2026-04-10
 
 ### push:gh — docs: 变更记录双路径(changelog镜像)与 push 脚本同步写入

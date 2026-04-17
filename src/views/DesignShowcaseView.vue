@@ -1080,6 +1080,10 @@ onMounted(() => {
   margin-bottom: 0;
 }
 
+.ds-dash__form--filters :deep(.el-row) {
+  row-gap: 20px;
+}
+
 .ds-dash__form--filters :deep(.el-row:not(:last-child)) {
   margin-bottom: 16px;
 }

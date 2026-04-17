@@ -1836,3 +1836,56 @@ a.ds-btn.ds-topnav-entry {
   color: var(--ds-text-secondary);
   line-height: 1.65;
 }
+
+/* ===== Date picker — 对齐 Figma 规格 (7417:19055) =====
+   规格：h 32px / 圆角 6px / padding 0 12px / 内部 gap 8px
+   日历图标移到右侧（Element Plus 默认在左）
+   颜色全部走 --ds-* tokens，暗色模式自动跟随 */
+
+.el-date-editor.el-input .el-input__wrapper,
+.el-date-editor.el-range-editor {
+  border-radius: var(--ds-radius-m);
+}
+
+/* 单日期 / datetime：prefix(日历) 由左移到右 */
+.el-date-editor.el-input .el-input__wrapper .el-input__prefix {
+  order: 2;
+  margin-left: 8px;
+  margin-right: 0;
+  color: var(--ds-text-placeholder);
+}
+
+/* 范围：daterange / datetimerange / monthrange */
+.el-date-editor.el-range-editor {
+  padding: 0 12px;
+  gap: 8px;
+}
+
+.el-date-editor.el-range-editor .el-range__icon {
+  order: 11;
+  margin: 0;
+  color: var(--ds-text-placeholder);
+}
+
+.el-date-editor.el-range-editor .el-range__close-icon {
+  order: 10;
+  margin: 0;
+  color: var(--ds-text-placeholder);
+}
+
+.el-date-editor.el-range-editor .el-range-input {
+  color: var(--ds-text);
+  font-size: 14px;
+  line-height: 22px;
+  padding: 0;
+}
+
+.el-date-editor.el-range-editor .el-range-input::placeholder {
+  color: var(--ds-text-placeholder);
+}
+
+.el-date-editor.el-range-editor .el-range-separator {
+  color: var(--ds-text-placeholder);
+  padding: 0;
+  line-height: 22px;
+}

@@ -20,10 +20,14 @@ const logPathPrimary = path.join(root, '变更记录', 'CHANGELOG.md')
 const logPathMirror = path.join(root, 'changelog', 'CHANGELOG.md')
 const logRels = ['变更记录/CHANGELOG.md', 'changelog/CHANGELOG.md']
 
+function toLF(s) {
+  return s.replace(/\r\n/g, '\n')
+}
+
 function readChangelogUtf8() {
   for (const p of [logPathPrimary, logPathMirror]) {
     try {
-      return fs.readFileSync(p, 'utf8')
+      return toLF(fs.readFileSync(p, 'utf8'))
     } catch {
       /* try next */
     }
@@ -32,9 +36,10 @@ function readChangelogUtf8() {
 }
 
 function writeChangelogUtf8(fullBody) {
+  const normalized = toLF(fullBody)
   for (const p of [logPathPrimary, logPathMirror]) {
     fs.mkdirSync(path.dirname(p), { recursive: true })
-    fs.writeFileSync(p, fullBody, 'utf8')
+    fs.writeFileSync(p, normalized, 'utf8')
   }
 }
 
@@ -59,18 +64,22 @@ function getChangedFiles() {
   }
 }
 
-function appendAutoReleaseNote(commitMessage, summaryForLog, files) {
+/**
+ * 按天汇总写入变更记录：
+ * - 当天 block 不存在：新建 `## YYYY-MM-DD` block，首条记录
+ * - 当天 block 已存在：把新条目作为 bullet 追加到同一 block，不新增 `###` 子标题
+ * 每条记录格式：
+ *   - <commit message>
+ *     - 涉及：file1、file2、...
+ */
+function appendAutoReleaseNote(commitMessage, files) {
   const body = readChangelogUtf8()
   const today = todayISO()
-  const fileHint = files.length
-    ? `涉及：${files.slice(0, 14).join('、')}${files.length > 14 ? '…' : ''}`
+  const message = commitMessage.replace(/\r?\n/g, ' ').trim()
+  const filesLine = files.length
+    ? `  - 涉及：${files.slice(0, 14).join('、')}${files.length > 14 ? '…' : ''}\n`
     : ''
-  const summaryLine = `Git 发布：${summaryForLog}`
-  const releaseBlock =
-    `### push:gh — ${commitMessage.replace(/\r?\n/g, ' ')}\n\n` +
-    `- ${summaryLine}\n` +
-    (fileHint ? `- ${fileHint}\n` : '') +
-    `\n`
+  const newEntry = `- ${message}\n${filesLine}`
 
   const anchor = '\n---\n\n'
   const ai = body.indexOf(anchor)
@@ -78,16 +87,24 @@ function appendAutoReleaseNote(commitMessage, summaryForLog, files) {
 
   const after = ai + anchor.length
   const rest = body.slice(after)
+  const dayHeader = `## ${today}\n`
 
-  const dayHeader = `## ${today}`
   let newBody
   if (rest.startsWith(dayHeader)) {
-    let pos = dayHeader.length
-    while (pos < rest.length && rest[pos] === '\n') pos++
-    const newRest = rest.slice(0, pos) + releaseBlock + rest.slice(pos)
-    newBody = body.slice(0, after) + newRest
+    const startAfterHeader = dayHeader.length
+    let endInRest = rest.indexOf('\n## ', startAfterHeader)
+    const endByDashes = rest.indexOf('\n---\n', startAfterHeader)
+    if (endByDashes !== -1 && (endInRest === -1 || endByDashes < endInRest)) {
+      endInRest = endByDashes
+    }
+    if (endInRest === -1) endInRest = rest.length
+
+    const blockContent = rest.slice(startAfterHeader, endInRest)
+    const trimmed = blockContent.replace(/\n+$/, '')
+    const newBlockContent = trimmed + (trimmed ? '\n' : '') + newEntry + '\n'
+    newBody = body.slice(0, after) + dayHeader + newBlockContent + rest.slice(endInRest)
   } else {
-    const block = `## ${today}\n\n${releaseBlock}---\n\n`
+    const block = `## ${today}\n\n${newEntry}\n---\n\n`
     newBody = body.slice(0, after) + block + rest
   }
 
@@ -95,10 +112,9 @@ function appendAutoReleaseNote(commitMessage, summaryForLog, files) {
 }
 
 const commitMsg = process.argv.slice(2).join(' ').trim() || 'chore(release): 同步变更记录与发布'
-const summaryForLog = commitMsg.replace(/^(fix|feat|docs|chore)(\([^)]+\))?:\s*/i, '').trim() || commitMsg
 
 const files = getChangedFiles()
-appendAutoReleaseNote(commitMsg, summaryForLog, files)
+appendAutoReleaseNote(commitMsg, files)
 console.log(`[push-with-changelog] 已追加变更记录 → ${logRels.join(' 与 ')}`)
 
 execSync('git add -A', { cwd: root, stdio: 'inherit' })
